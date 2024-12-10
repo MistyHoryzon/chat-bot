@@ -8,19 +8,38 @@ function App() {
 
   const [userMessage, setUserMessage] = useState("");
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (userMessage.trim() === "") return;
-
+  
     const userMessageObject = { sender: "user", text: userMessage };
     setChatMessages((prevMessages) => [...prevMessages, userMessageObject]);
-
+  
     setUserMessage("");
-
-    // Имитация ответа бота
-    setTimeout(() => {
-      const botReply = { sender: "bot", text: "Это пример ответа бота." };
+  
+    try {
+      // Отправка вопроса на backend
+      const response = await fetch("http://127.0.0.1:5000/api/ask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ question: userMessage }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Ошибка сервера.");
+      }
+  
+      const data = await response.json();
+      const botReply = { sender: "bot", text: data.answer || "Не удалось получить ответ." };
+  
+      // Добавление ответа бота
       setChatMessages((prevMessages) => [...prevMessages, botReply]);
-    }, 1000);
+    } catch (error) {
+      console.error("Ошибка:", error);
+      const errorReply = { sender: "bot", text: "Произошла ошибка. Попробуйте позже." };
+      setChatMessages((prevMessages) => [...prevMessages, errorReply]);
+    }
   };
 
   return (
