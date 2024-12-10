@@ -1,81 +1,75 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [userMessage, setUserMessage] = useState('');
   const [chatMessages, setChatMessages] = useState([
-    // Заглушки для чата
-    { sender: 'bot', text: 'Здравствуйте! Я ваш университетский помощник. Чем могу помочь?' },
-    { sender: 'user', text: 'Подскажите, пожалуйста, мое расписание на завтра.' },
-    { sender: 'bot', text: 'Завтра у вас 3 пары: Математика в 9:00, Физика в 11:00, Английский в 13:00.' }
+    { sender: "bot", text: "Добрый день! Как я могу вам помочь?" },
   ]);
 
-  const [uploadedFile, setUploadedFile] = useState(null);
+  const [userMessage, setUserMessage] = useState("");
 
   const handleSendMessage = () => {
-    if (userMessage.trim() !== '') {
-      const newMessage = { sender: 'user', text: userMessage };
-      setChatMessages([...chatMessages, newMessage]);
-      setUserMessage('');
+    if (userMessage.trim() === "") return;
 
-      // Имитация ответа бота
-      setTimeout(() => {
-        const botResponse = { sender: 'bot', text: 'Это пример ответа бота.' };
-        setChatMessages(prev => [...prev, botResponse]);
-      }, 1000);
-    }
-  };
+    const userMessageObject = { sender: "user", text: userMessage };
+    setChatMessages((prevMessages) => [...prevMessages, userMessageObject]);
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setUploadedFile(file);
-      // Здесь будет логика отправки файла на сервер
-    }
+    setUserMessage("");
+
+    // Имитация ответа бота
+    setTimeout(() => {
+      const botReply = { sender: "bot", text: "Это пример ответа бота." };
+      setChatMessages((prevMessages) => [...prevMessages, botReply]);
+    }, 1000);
   };
 
   return (
-    <div className="app-container">
-      <div className="chat-wrapper">
-        <h1 className="chat-title">Чат с ботом</h1>
-        <div className="chat-messages">
+    <div className="page-wrapper">
+      <header className="header">
+        <div className="container">
+          <h1>КАМЧАТСКИЙ ГОСУДАРСТВЕННЫЙ ТЕХНИЧЕСКИЙ УНИВЕРСИТЕТ</h1>
+          <nav>
+            <ul className="nav-links">
+              <li><a href="#">ПОСТУПАЮЩИМ</a></li>
+              <li><a href="#">ОБУЧАЮЩИМСЯ</a></li>
+              <li><a href="#">ВЫПУСКНИКАМ</a></li>
+              <li><a href="#">СОТРУДНИКАМ</a></li>
+              <li><a href="#">КОНТАКТЫ</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <main className="chat-container">
+        <div className="chat-header">
+          <h2>Чат-бот</h2>
+          <div className="bot-info">
+            <i className="fas fa-robot"></i>
+          </div>
+        </div>
+        <div className="chat-messages" id="chatMessages">
           {chatMessages.map((msg, index) => (
-            <div 
-              key={index} 
-              className={`chat-message ${msg.sender === 'bot' ? 'bot-message' : 'user-message'}`}
-            >
-              {msg.text}
+            <div key={index} className={`message ${msg.sender === "bot" ? "bot-message" : "user-message"}`}>
+              <p>{msg.text}</p>
             </div>
           ))}
         </div>
-
-        <div className="chat-controls">
-          <div className="input-and-button">
-            <input 
-              type="text" 
-              className="chat-input" 
-              placeholder="Ваш вопрос..."
-              value={userMessage}
-              onChange={(e) => setUserMessage(e.target.value)}
-            />
-            <button className="send-button" onClick={handleSendMessage}>
-              Отправить
-            </button>
-          </div>
-
-          <div className="file-upload-container">
-            <label className="file-upload-label">
-              Загрузить документ
-              <input 
-                type="file" 
-                className="file-upload-input" 
-                onChange={handleFileUpload}
-              />
-            </label>
-            {uploadedFile && <p className="uploaded-file-name">Загружен файл: {uploadedFile.name}</p>}
-          </div>
+        <div className="chat-input">
+          <textarea
+            id="userInput"
+            placeholder="Введите ваше сообщение..."
+            value={userMessage}
+            onChange={(e) => setUserMessage(e.target.value)}
+          ></textarea>
+          <button id="sendButton" onClick={handleSendMessage}>
+            <i className="fas fa-paper-plane"></i>
+          </button>
         </div>
-      </div>
+      </main>
+
+      <footer className="footer">
+        <p>© 2024 Камчатский государственный технический университет</p>
+      </footer>
     </div>
   );
 }

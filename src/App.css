@@ -2,180 +2,187 @@
 html, body {
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  background-color: #121212;
+  font-family: "Roboto", sans-serif;
+  background: #f4f7f9;
+  color: #333;
   height: 100%;
-  color: #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  font-weight: 300; /* Тонкий шрифт */
 }
 
-/* Контейнер приложения */
-.app-container {
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-weight: 300; /* Тонкий шрифт */
+}
+
+/* Контейнер */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  font-weight: 300; /* Тонкий шрифт */
+}
+
+/* Шапка */
+.header {
+  background: #013249;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  font-weight: 300; /* Тонкий шрифт */
+}
+
+.header h1 {
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 300; /* Тонкий шрифт */
+}
+
+.nav-links {
   display: flex;
   justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  font-weight: 300; /* Тонкий шрифт */
+}
+
+
+.nav-links li {
+  margin: 0 15px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 300; /* Тонкий шрифт */
+  font-size: 0.9rem;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+/* Чат */
+.chat-container {
+  flex: 1; /* Растягивает основной контент, чтобы занять доступное пространство */
+  max-width: 80%; /* Используем процент, чтобы задать ширину относительно экрана */
+  margin: 30px auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Если нужно фиксировать минимальную ширину */
+.chat-container {
+  min-width: 600px; /* Устанавливаем минимальную ширину для чата */
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
-  background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+  background: #0289c8;
+  padding: 15px;
+  color: white;
+  font-weight: 300; /* Тонкий шрифт */
 }
 
-/* Обертка чата */
-.chat-wrapper {
-  background-color: #1e1e1e;
-  border-radius: 12px;
-  max-width: 800px;
-  width: 100%;
-  padding: 25px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  display: flex;
-  flex-direction: column;
+.chat-header h2 {
+  margin: 0;
+  font-weight: 300; /* Тонкий шрифт */
 }
 
-/* Заголовок чата */
-.chat-title {
-  font-size: 2rem;
-  margin-bottom: 25px;
-  text-align: center;
-  color: #ffffff;
-  font-weight: bold;
-}
 
-/* Область сообщений */
 .chat-messages {
-  flex: 1;
-  margin-bottom: 20px;
-  padding: 20px;
-  border-radius: 8px;
-  background: #2a2a2a;
+  height: 400px;
   overflow-y: auto;
-  border: 1px solid #333333;
+  padding: 15px;
+  background: #f9f9f9;
+  font-weight: 300; /* Тонкий шрифт */
 }
 
-/* Сообщения */
-.chat-message {
-  margin: 15px 0;
-  padding: 15px 20px;
-  border-radius: 20px;
+.message {
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  border-radius: 10px;
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.5;
+  width: fit-content;
   max-width: 70%;
-  position: relative;
+  font-weight: 300; /* Тонкий шрифт */
 }
 
-/* Стиль сообщений бота */
 .bot-message {
-  background-color: #3a3a3a;
+  background: #e6f7ff;
+  color: #013249;
   align-self: flex-start;
-  color: #ffffff;
 }
 
-/* Стиль сообщений пользователя */
 .user-message {
-  background-color: #0077b6;
+  background: #d1f7c4;
+  color: #333;
   align-self: flex-end;
-  color: #ffffff;
-}
-
-/* Добавление треугольника к сообщениям */
-.bot-message::before, .user-message::before {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-style: solid;
-}
-
-.bot-message::before {
-  top: 0;
-  left: -10px;
-  border-width: 10px 10px 10px 0;
-  border-color: transparent #3a3a3a transparent transparent;
-}
-
-.user-message::before {
-  top: 0;
-  right: -10px;
-  border-width: 10px 0 10px 10px;
-  border-color: transparent transparent transparent #0077b6;
-}
-
-/* Контейнер для контролов */
-.chat-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-/* Контейнер для ввода и кнопки */
-.input-and-button {
-  display: flex;
-  gap: 10px;
 }
 
 /* Поле ввода */
 .chat-input {
-  flex: 1;
-  padding: 15px;
-  border: 1px solid #444444;
-  border-radius: 8px;
-  font-size: 1rem;
-  background-color: #1e1e1e;
-  color: #e0e0e0;
-  transition: border-color 0.3s;
-}
-
-.chat-input:focus {
-  border-color: #0077b6;
-  outline: none;
-}
-
-/* Кнопка отправки */
-.send-button {
-  background-color: #0077b6;
-  border: none;
-  color: #ffffff;
-  padding: 15px 25px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s;
-}
-
-.send-button:hover {
-  background-color: #005c8a;
-}
-
-/* Контейнер для загрузки файлов */
-.file-upload-container {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  padding: 5px;
+  border-top: 1px solid #ddd;
+  background: #fff;
+  border-radius: 20px;
+  font-weight: 300; /* Тонкий шрифт */
 }
 
-/* Метка для загрузки файлов */
-.file-upload-label {
-  background-color: #0077b6;
-  color: #ffffff;
-  padding: 12px 20px;
-  border-radius: 8px;
+.chat-input textarea {
+  flex: 1;
+  padding: 8px 40px 8px 10px;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  resize: none;
+  outline: none;
+  height: 35px;
+  font-weight: 300; /* Тонкий шрифт */
+}
+
+.chat-input button {
+  position: relative;
+  right: 30px;
+  background: #0289c8;
+  border: none;
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  font-size: 1rem;
-  display: inline-block;
-  margin-bottom: 5px;
-  transition: background-color 0.3s;
+  margin-left: -35px;
+  font-weight: 300; /* Тонкий шрифт */
 }
 
-.file-upload-label:hover {
-  background-color: #005c8a;
+.chat-input button:hover {
+  background: #00509e;
 }
 
-/* Скрытый input для загрузки файлов */
-.file-upload-input {
-  display: none;
-}
-
-/* Отображение имени загруженного файла */
-.uploaded-file-name {
-  font-size: 1rem;
-  color: #e0e0e0;
+/* Подвал */
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  background: #013249;
+  color: white;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  font-weight: 300; /* Тонкий шрифт */
 }
