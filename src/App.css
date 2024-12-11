@@ -122,13 +122,16 @@ html, body {
 .bot-message {
   background: #e6f7ff;
   color: #013249;
-  align-self: flex-start;
+  align-self: flex-start; /* Выравнивание по левому краю */
+  text-align: left; /* Текст слева */
+  margin-right: auto; /* Гарантируем, что будет слева */
 }
-
 .user-message {
   background: #d1f7c4;
   color: #333;
-  align-self: flex-end;
+  align-self: flex-end; /* Выравнивание по правому краю */
+  text-align: right; /* Текст справа */
+  margin-left: auto; /* Гарантируем, что будет справа */
 }
 
 /* Поле ввода */
